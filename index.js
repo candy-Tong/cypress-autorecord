@@ -66,7 +66,7 @@ module.exports = function autoRecord() {
 
     cy.server({
       // Filter out blacklisted routes from being recorded and logged
-      whitelist: (xhr) => {
+      ignore: (xhr) => {
         if (xhr.url) {
           // TODO: Use blobs
           return blacklistRoutes.some((route) => xhr.url.includes(route));
@@ -95,7 +95,7 @@ module.exports = function autoRecord() {
               route.method === method &&
               // when the response has changed for an identical request signature
               // add this entry as well.  This is useful for polling-oriented endpoints
-              // that can have varying responses. 
+              // that can have varying responses.
               route.response === data
           )
         ) {
